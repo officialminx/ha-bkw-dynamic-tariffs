@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Home Assistant
+.storage/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store

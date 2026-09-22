@@ -1,0 +1,11 @@
+{
+    "domain": "bkw_dynamic_tariffs",
+    "name": "BKW Dynamic Tariffs",
+    "codeowners": ["@janikbachmann"],
+    "config_flow": true,
+    "documentation": "https://github.com/janikbachmann/ha-bkw-dynamic-tariffs",
+    "integration_type": "service",
+    "iot_class": "cloud_polling",
+    "issue_tracker": "https://github.com/janikbachmann/ha-bkw-dynamic-tariffs/issues",
+    "version": "0.1.0"
+}

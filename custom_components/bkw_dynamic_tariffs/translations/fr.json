@@ -1,0 +1,55 @@
+{
+    "config": {
+        "step": {
+            "user": {
+                "title": "BKW Dynamic Tariffs («Sonne semble briller»)",
+                "description": "Configurez l'intégration BKW pour le tarif de réseau dynamique. Les données sont récupérées une fois par jour après 17h05 (heure de publication de BKW).",
+                "data": {
+                    "region": "Région tarifaire",
+                    "api_key": "Clé API (Ocp-Apim-Subscription-Key)",
+                    "base_url": "URL de l'endpoint EMS",
+                    "base_tariff_rp": "Tarif de base de l'utilisation du réseau (Rp./kWh, facultatif)",
+                    "medium_discount_pct": "Remise niveau moyen (%)",
+                    "high_discount_pct": "Remise niveau élevé (%)",
+                    "demo_mode": "Mode démo (sans clé API, données d'exemple déterministes)"
+                }
+            },
+            "reconfigure": {
+                "title": "Reconfigurer BKW Dynamic Tariffs",
+                "description": "Mettre à jour la région, la clé API ou les paramètres tarifaires.",
+                "data": {
+                    "region": "Région tarifaire",
+                    "api_key": "Clé API (Ocp-Apim-Subscription-Key)",
+                    "base_url": "URL de l'endpoint EMS",
+                    "base_tariff_rp": "Tarif de base de l'utilisation du réseau (Rp./kWh, facultatif)",
+                    "medium_discount_pct": "Remise niveau moyen (%)",
+                    "high_discount_pct": "Remise niveau élevé (%)",
+                    "demo_mode": "Mode démo (sans clé API, données d'exemple déterministes)"
+                }
+            },
+            "reauth_confirm": {
+                "title": "Clé API BKW rejetée",
+                "description": "L'API BKW a rejeté la clé enregistrée ({base_url}). Veuillez saisir une clé valide.",
+                "data": {
+                    "api_key": "Clé API (Ocp-Apim-Subscription-Key)"
+                }
+            }
+        },
+        "error": {
+            "invalid_api_key": "Veuillez saisir une clé API valide (ou activer le mode démo).",
+            "invalid_url": "L'URL doit commencer par http:// ou https://.",
+            "invalid_tariff": "Le tarif de base doit être supérieur à 0.",
+            "invalid_discounts": "La remise « moyen » doit être inférieure à la remise « élevé » (0–100 %)."
+        },
+        "abort": {
+            "reconfigure_successful": "Reconfiguration réussie.",
+            "reauth_successful": "Réauthentification réussie."
+        }
+    },
+    "services": {
+        "refresh": {
+            "name": "Actualiser",
+            "description": "Déclenche manuellement une actualisation des données de remise BKW."
+        }
+    }
+}

@@ -1,0 +1,55 @@
+{
+    "config": {
+        "step": {
+            "user": {
+                "title": "BKW Dynamic Tariffs («Sonne scheint»)",
+                "description": "Set up the BKW dynamic grid tariff discount integration. Data is fetched once per day after 17:05 (publication time of BKW).",
+                "data": {
+                    "region": "Tariff region",
+                    "api_key": "API key (Ocp-Apim-Subscription-Key)",
+                    "base_url": "EMS API endpoint URL",
+                    "base_tariff_rp": "Base grid usage tariff (Rp./kWh, optional)",
+                    "medium_discount_pct": "Discount for level medium (%)",
+                    "high_discount_pct": "Discount for level high (%)",
+                    "demo_mode": "Demo mode (no API key, deterministic sample data)"
+                }
+            },
+            "reconfigure": {
+                "title": "Reconfigure BKW Dynamic Tariffs",
+                "description": "Update region, API key or tariff settings.",
+                "data": {
+                    "region": "Tariff region",
+                    "api_key": "API key (Ocp-Apim-Subscription-Key)",
+                    "base_url": "EMS API endpoint URL",
+                    "base_tariff_rp": "Base grid usage tariff (Rp./kWh, optional)",
+                    "medium_discount_pct": "Discount for level medium (%)",
+                    "high_discount_pct": "Discount for level high (%)",
+                    "demo_mode": "Demo mode (no API key, deterministic sample data)"
+                }
+            },
+            "reauth_confirm": {
+                "title": "BKW API key rejected",
+                "description": "The BKW API rejected the stored API key ({base_url}). Please enter a valid key.",
+                "data": {
+                    "api_key": "API key (Ocp-Apim-Subscription-Key)"
+                }
+            }
+        },
+        "error": {
+            "invalid_api_key": "Please enter a valid API key (or enable demo mode).",
+            "invalid_url": "The URL must start with http:// or https://.",
+            "invalid_tariff": "The base tariff must be greater than 0.",
+            "invalid_discounts": "The medium discount must be smaller than the high discount (0-100%)."
+        },
+        "abort": {
+            "reconfigure_successful": "Reconfiguration successful.",
+            "reauth_successful": "Re-authentication was successful."
+        }
+    },
+    "services": {
+        "refresh": {
+            "name": "Refresh",
+            "description": "Manually triggers a refresh of the BKW discount window data."
+        }
+    }
+}

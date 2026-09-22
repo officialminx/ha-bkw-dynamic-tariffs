@@ -1,0 +1,55 @@
+{
+    "config": {
+        "step": {
+            "user": {
+                "title": "BKW Dynamic Tariffs («Sonne scheint»)",
+                "description": "Richte die BKW-Integration für den dynamischen Netznutzungstarif ein. Die Daten werden einmal täglich nach 17:05 Uhr (Publikationszeit von BKW) abgerufen.",
+                "data": {
+                    "region": "Tarifregion",
+                    "api_key": "API-Schlüssel (Ocp-Apim-Subscription-Key)",
+                    "base_url": "EMS-API-Endpunkt-URL",
+                    "base_tariff_rp": "Basis-Arbeitstarif Netznutzung (Rp./kWh, optional)",
+                    "medium_discount_pct": "Rabatt bei Stufe mittel (%)",
+                    "high_discount_pct": "Rabatt bei Stufe hoch (%)",
+                    "demo_mode": "Demomodus (kein API-Schlüssel, deterministische Beispieldaten)"
+                }
+            },
+            "reconfigure": {
+                "title": "BKW Dynamic Tariffs neu konfigurieren",
+                "description": "Region, API-Schlüssel oder Tarif-Einstellungen aktualisieren.",
+                "data": {
+                    "region": "Tarifregion",
+                    "api_key": "API-Schlüssel (Ocp-Apim-Subscription-Key)",
+                    "base_url": "EMS-API-Endpunkt-URL",
+                    "base_tariff_rp": "Basis-Arbeitstarif Netznutzung (Rp./kWh, optional)",
+                    "medium_discount_pct": "Rabatt bei Stufe mittel (%)",
+                    "high_discount_pct": "Rabatt bei Stufe hoch (%)",
+                    "demo_mode": "Demomodus (kein API-Schlüssel, deterministische Beispieldaten)"
+                }
+            },
+            "reauth_confirm": {
+                "title": "BKW-API-Schlüssel abgelehnt",
+                "description": "Die BKW-API hat den gespeicherten Schlüssel abgelehnt ({base_url}). Bitte gib einen gültigen Schlüssel ein.",
+                "data": {
+                    "api_key": "API-Schlüssel (Ocp-Apim-Subscription-Key)"
+                }
+            }
+        },
+        "error": {
+            "invalid_api_key": "Bitte gib einen gültigen API-Schlüssel ein (oder aktiviere den Demomodus).",
+            "invalid_url": "Die URL muss mit http:// oder https:// beginnen.",
+            "invalid_tariff": "Der Basis-Tarif muss grösser als 0 sein.",
+            "invalid_discounts": "Der Rabatt für «mittel» muss kleiner sein als für «hoch» (0–100 %)."
+        },
+        "abort": {
+            "reconfigure_successful": "Neukonfiguration erfolgreich.",
+            "reauth_successful": "Erneute Authentifizierung war erfolgreich."
+        }
+    },
+    "services": {
+        "refresh": {
+            "name": "Aktualisieren",
+            "description": "Löst eine manuelle Aktualisierung der BKW-Rabattfensterdaten aus."
+        }
+    }
+}
