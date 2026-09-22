@@ -12,6 +12,9 @@
                     "medium_discount_pct": "Discount for level medium (%)",
                     "high_discount_pct": "Discount for level high (%)",
                     "demo_mode": "Demo mode (no API key, deterministic sample data)"
+                },
+                "data_description": {
+                    "region": "Your region follows the postal code of your grid connection. The discount level is based on the sunshine forecast at the region's reference station."
                 }
             },
             "reconfigure": {

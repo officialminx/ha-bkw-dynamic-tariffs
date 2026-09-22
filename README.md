@@ -53,7 +53,8 @@ Predbat, EVCC & automations.
 | Levels | `medium` (≥ 50% sunshine in window) / `high` (≥ 80%) |
 | Max. discount | **40%** on the energy part of the grid usage tariff |
 | Publication | **binding at 17:00 the day before** (bkw.ch + EMS API) |
-| Regions | Jura (Delémont), Seeland-Mittelland (Zollikofen), Emmental-Oberaargau (Koppigen), Oberland West (Frutigen), Oberland Ost (Meiringen) |
+| Region assignment | via the **postal code** of your grid connection; the discount level is derived from the sunshine forecast at the region's **reference station** |
+| Regions (reference station) | Jura (Delémont), Seeland-Mittelland (Zollikofen), Emmental-Oberaargau (Koppigen), Oberland West (Frutigen), Oberland Ost (Meiringen) |
 
 Source: official BKW technical description — <https://www.bkw.ch/sonnescheint>
 

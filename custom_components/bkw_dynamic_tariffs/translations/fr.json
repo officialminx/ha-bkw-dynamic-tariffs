@@ -12,6 +12,9 @@
                     "medium_discount_pct": "Remise niveau moyen (%)",
                     "high_discount_pct": "Remise niveau élevé (%)",
                     "demo_mode": "Mode démo (sans clé API, données d'exemple déterministes)"
+                },
+                "data_description": {
+                    "region": "Votre région est déterminée par le code postal de votre point de raccordement. Le niveau de remise est basé sur les prévisions d'ensoleillement de la station de référence de la région."
                 }
             },
             "reconfigure": {

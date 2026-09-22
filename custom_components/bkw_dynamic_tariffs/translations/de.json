@@ -12,6 +12,9 @@
                     "medium_discount_pct": "Rabatt bei Stufe mittel (%)",
                     "high_discount_pct": "Rabatt bei Stufe hoch (%)",
                     "demo_mode": "Demomodus (kein API-Schlüssel, deterministische Beispieldaten)"
+                },
+                "data_description": {
+                    "region": "Deine Region ergibt sich aus der Postleitzahl deines Hausanschlusses. Massgebend für die Rabattstufe ist die Referenzstation der Region (MeteoSchweiz-Prognose)."
                 }
             },
             "reconfigure": {
