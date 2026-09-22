@@ -1,17 +1,50 @@
-# BKW Dynamic Tariffs for Home Assistant
+<div align="center">
 
-Custom integration that exposes **BKW's dynamic grid usage tariff
-«Sonne scheint»** (sun-dependent discount windows) as Home Assistant
-sensors, so energy optimization tools (Predbat, EVCC, automations, …)
-can consume the discount signal.
+# ☀️ BKW Dynamic Tariffs for Home Assistant
 
-> ℹ️ BKW plans to launch this tariff in 2027. The exact public **EMS API
-> endpoint is not published yet** — this integration is built so that only
-> the endpoint URL has to be adjusted once BKW documents it. Until then,
-> the **demo mode** lets you explore all sensors with deterministic
-> sample data.
+**Custom integration for BKW's dynamic grid usage tariff «Sonne scheint»**
 
-## How the tariff works
+Sunshine discount windows as Home Assistant sensors — ready for
+Predbat, EVCC & automations.
+
+[![hacs_badge](https://img.shields.io/badge/HACS-Custom-41BDF5.svg)](https://github.com/hacs/integration)
+[![License: MIT](https://img.shields.io/badge/License-MIT-informational.svg)](LICENSE)
+![Version](https://img.shields.io/badge/version-v0.0.1--beta-orange)
+![Home Assistant](https://img.shields.io/badge/Home%20Assistant-2024.11%2B-038FC7)
+![Platform](https://img.shields.io/badge/platform-sensor%20%7C%20binary__sensor-lightgrey)
+
+[Installation](#-installation) · [Configuration](#-configuration) · [Entities](#-entities) · [Support](#-community--support)
+
+</div>
+
+---
+
+> [!IMPORTANT]
+> **Pre-release (v0.0.1).** BKW plans to launch the tariff in 2027 and the
+> public **EMS API endpoint is not published yet**. The integration is built
+> so that only the endpoint URL needs to be adjusted once BKW documents it.
+> Until then, use the built-in **demo mode** to explore all entities.
+
+## ✨ Features
+
+- 📊 **Current discount sensor** — live discount in % with a JSON forecast
+  attribute for today + tomorrow
+- 🏷️ **Discount level sensor** — announced level `none` / `medium` / `high`
+  for today (published bindingly at 17:00 the day before)
+- 💰 **Net usage tariff sensor** — effective grid tariff in Rp./kWh with a
+  **Predbat-compatible `rates` attribute** (`[{from, to, value}]`)
+- 🔛 **Binary sensor** — ON while a discount window is active
+  (daily 13:00–17:00, April–September, Europe/Zurich)
+- 🗺️ **All 5 BKW regions** — Jura, Seeland-Mittelland, Emmental-Oberaargau,
+  Oberland West, Oberland Ost
+- 🔐 **API-key first** — subscription key sent as `Ocp-Apim-Subscription-Key`,
+  stored securely in the config entry (never in `configuration.yaml`)
+- ⏰ **Gentle polling** — one fetch per day at 17:05 (after BKW's publication
+  time) plus two retries; deliberately **no hourly polling**
+- 🧪 **Demo mode** — deterministic sample data without any API access
+- 🌍 **Translations** — English, German, French
+
+## 📖 How the tariff works
 
 | Property | Value |
 | --- | --- |
@@ -22,51 +55,56 @@ can consume the discount signal.
 | Publication | **binding at 17:00 the day before** (bkw.ch + EMS API) |
 | Regions | Jura (Delémont), Seeland-Mittelland (Zollikofen), Emmental-Oberaargau (Koppigen), Oberland West (Frutigen), Oberland Ost (Meiringen) |
 
-## Installation
+Source: official BKW technical description — <https://www.bkw.ch/sonnescheint>
 
-### HACS (custom repository)
+## 📦 Installation
 
-1. HACS → ⋮ → *Custom repositories*
-2. Add `https://github.com/janikbachmann/ha-bkw-dynamic-tariffs` (category: **Integration**)
-3. Install **BKW Dynamic Tariffs**
-4. Restart Home Assistant
+### HACS (recommended)
+
+1. Make sure [HACS](https://hacs.xyz) is installed
+2. HACS → ⋮ (top right) → **Custom repositories**
+3. Add this repository URL with category **Integration**
+4. Search for & install **"BKW Dynamic Tariffs"**
+5. Restart Home Assistant
 
 ### Manual
 
-Copy `custom_components/bkw_dynamic_tariffs/` into the `custom_components/`
-folder of your Home Assistant configuration and restart.
+1. Download and copy the `custom_components/bkw_dynamic_tariffs/` folder
+   into the `custom_components/` directory of your Home Assistant
+   configuration
+2. Restart Home Assistant
 
-## Configuration
+## ⚙️ Configuration
 
-Settings → Devices & Services → Add Integration → **BKW Dynamic Tariffs**
+Settings → **Devices & Services** → **Add Integration** → search for
+**BKW Dynamic Tariffs**
 
 | Field | Description |
 | --- | --- |
-| Region | Your BKW tariff region (see table above) |
-| API key | Subscription key, sent as `Ocp-Apim-Subscription-Key` header (not required in demo mode) |
-| API endpoint | Full URL of the EMS discount-window endpoint. The default is a **placeholder** – replace it once BKW publishes the official URL |
-| Base tariff (Rp./kWh) | Optional: your grid usage energy tariff; enables the net tariff sensor with `rates` |
-| Medium/High discount % | Discount per level (defaults 20% / 40%, max. discount per BKW spec is 40%) |
-| Demo mode | Deterministic sample data without API access |
+| **Region** | Your BKW tariff region (dropdown, see table above) |
+| **API key** | Subscription key, sent as `Ocp-Apim-Subscription-Key` header *(not required in demo mode)* |
+| **API endpoint** | Full URL of the EMS discount-window endpoint. The default is a **placeholder** — replace it once BKW publishes the official URL |
+| **Base tariff** *(optional)* | Your grid usage energy tariff in Rp./kWh; enables the net tariff sensor with `rates` |
+| **Medium / High discount %** | Discount per level (defaults 20% / 40%; BKW specifies a 40% maximum) |
+| **Demo mode** | Deterministic sample data without API access |
 
-The integration refreshes data **once per day at 17:05** (shortly after
-BKW's publication time) with up to two retries (18:05, 19:05) if the
-announcement for the next day is missing. There is deliberately **no
-hourly polling**. A manual refresh is available via the
-`bkw_dynamic_tariffs.refresh` service.
+Changes later: integration entry → **Configure** (reconfigure) or the
+reauth dialog is started automatically if the API key is rejected.
 
-## Sensors
+Manuelle Aktualisierung: Service `bkw_dynamic_tariffs.refresh`.
+
+## 🛠️ Entities
 
 | Entity | Description |
 | --- | --- |
 | `sensor.bkw_sonne_scheint_current_discount` | Currently granted discount in `%` (0 outside the window) |
 | `sensor.bkw_sonne_scheint_discount_level_today` | Announced level for today: `none` / `medium` / `high` |
-| `sensor.bkw_sonne_scheint_net_usage_tariff` | Effective usage tariff in Rp./kWh incl. Predbat-style `rates` (only if base tariff configured) |
+| `sensor.bkw_sonne_scheint_net_usage_tariff` | Effective usage tariff in Rp./kWh with `rates` *(only if base tariff configured)* |
 | `binary_sensor.bkw_sonne_scheint_discount_window_active` | ON while a discount window is active |
 
-### Forecast attribute (`data`)
+All entities belong to one device per config entry (per region).
 
-The current discount sensor exposes today + tomorrow as JSON:
+### Forecast attribute (`data`)
 
 ```json
 [
@@ -86,9 +124,6 @@ Entries without an announcement use `"level": "none"` and
 
 ### Predbat-style `rates` attribute
 
-If a base tariff (Rp./kWh) is configured, the net usage tariff sensor
-provides contiguous segments for today + tomorrow:
-
 ```json
 [
   { "from": "2027-07-14T00:00:00+02:00", "to": "2027-07-14T13:00:00+02:00", "value": 25.0 },
@@ -97,10 +132,10 @@ provides contiguous segments for today + tomorrow:
 ]
 ```
 
-Values are in **Rp./kWh** (`rates_unit` attribute). Adapt scaling to your
-optimizer if it expects a different unit.
+Values in **Rp./kWh** (`rates_unit` attribute); contiguous segments for
+today + tomorrow. Rescale for your optimizer if it expects a different unit.
 
-## Example automation
+## 🤖 Example automation
 
 ```yaml
 automation:
@@ -119,32 +154,62 @@ automation:
           entity_id: switch.washing_machine
 ```
 
-## Getting an API key
+## 🔑 Getting an API key
 
 The official EMS interface (per BKW's technical description, Anhang 7.1)
 will provide the discount announcements. The key is sent as an
-`Ocp-Apim-Subscription-Key` header (Azure API Management style). As soon
-as BKW publishes developer documentation (expected at tariff launch or on
-request via bkw.ch), update the **API endpoint** field in the integration's
-reconfigure dialog — no code change required.
+`Ocp-Apim-Subscription-Key` header (Azure API Management style). Once BKW
+publishes developer documentation (expected at tariff launch or on request
+via bkw.ch), update the **API endpoint** field via *Configure* — no code
+change required.
 
-## Development
+## ❓ FAQ / Troubleshooting
+
+**Entities show `unknown` after setup** — In non-demo mode the API endpoint
+URL must point to the (future) BKW EMS endpoint; until then use demo mode.
+
+**No data for tomorrow after 17:05** — The integration retries at 18:05 and
+19:05 automatically. Check the integration's logs (`custom_components.bkw_dynamic_tariffs`).
+
+**Wrong region?** — Reconfigure the entry and pick the correct region; or
+create one entry per region if you monitor several.
+
+Enable debug logging:
+
+```yaml
+logger:
+  logs:
+    custom_components.bkw_dynamic_tariffs: debug
+```
+
+## 💻 Development
 
 ```bash
 python3 -m unittest discover -s tests -v   # unit tests (stdlib only)
 python3 -m compileall custom_components    # syntax check
+python3 scripts/demo_smoke.py              # demo data smoke test
 ```
 
 The parsing/window logic lives in `models.py` without any Home Assistant
-imports, so it stays easily testable.
+imports, so it stays easily testable. Contributions welcome — please open
+an issue first to discuss your idea.
 
-## Disclaimer
+## ❤️ Community & Support
+
+- 🐛 Found a bug or have a feature request?
+  [Open an issue](https://github.com/officialminx/ha-bkw-dynamic-tariffs/issues)
+- 💬 Questions? [Start a discussion](https://github.com/officialminx/ha-bkw-dynamic-tariffs/discussions)
+- ⭐ If this integration helps you, a star is appreciated!
+
+<a href="https://www.buymeacoffee.com/" target="_blank">☕</a>
+
+## ⚠️ Disclaimer
 
 This project is not affiliated with or endorsed by BKW Energie AG.
 Tariff details may change until the official launch — verify parameters
 (discounts, window times, season) against the official BKW documentation:
 <https://www.bkw.ch/sonnescheint>
 
-## License
+## 📄 License
 
-[MIT](LICENSE)
+This project is licensed under the [MIT License](LICENSE).

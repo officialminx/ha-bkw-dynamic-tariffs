@@ -50,4 +50,4 @@ REGIONS: Final = {
 
 # --- Misc -------------------------------------------------------------------
 SUBSCRIPTION_HEADER: Final = "Ocp-Apim-Subscription-Key"
-USER_AGENT: Final = "ha-bkw-dynamic-tariffs/0.1.0 (Home Assistant custom integration)"
+USER_AGENT: Final = "ha-bkw-dynamic-tariffs/0.0.1 (Home Assistant custom integration)"

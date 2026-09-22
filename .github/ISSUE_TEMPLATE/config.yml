@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 Questions & Support
+    url: https://github.com/officialminx/ha-bkw-dynamic-tariffs/discussions
+    about: Please ask questions and request help in Discussions, not in Issues.
+  - name: ☀️ BKW «Sonne scheint» tariff information
+    url: https://www.bkw.ch/sonnescheint
+    about: Official BKW information about the dynamic grid tariff.
