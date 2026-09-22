@@ -13,6 +13,10 @@ htmlcov/
 # Home Assistant
 .storage/
 
+# Release artifacts (attached to GitHub releases, not committed)
+bkw_dynamic_tariffs.zip
+*.zip
+
 # Editors / OS
 .vscode/
 .idea/

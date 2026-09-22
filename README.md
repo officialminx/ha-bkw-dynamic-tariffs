@@ -57,6 +57,7 @@ Predbat, EVCC & automations.
 | Regions (reference station) | Jura (Delémont), Seeland-Mittelland (Zollikofen), Emmental-Oberaargau (Koppigen), Oberland West (Frutigen), Oberland Ost (Meiringen) |
 
 Source: official BKW technical description — <https://www.bkw.ch/sonnescheint>
+(local reference copy in [`docs/`](docs/), © BKW Energie AG)
 
 ## 📦 Installation
 
